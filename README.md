@@ -14,3 +14,6 @@ libglarray.sh supports the following shells:
 - OpenBSD Korn SHell - oksh ;
 - Public Domain Korn SHell - pdksh;
 - The Z shell - zsh.
+
+Other shells implementing the KSH arrays extension should be trivials
+to support.
