@@ -29,7 +29,7 @@ _glarraybash() {
 	declare -ga $_glarray_name
 	local _glarray_i=0
 	local _glarray_j=0
-	for _glarray_i in $@; do
+	for _glarray_i; do
 		declare -ga "$_glarray_name[$_glarray_j]=$_glarray_i"
 		_glarray_j=$(( $_glarray_j + 1 ))
 	done
@@ -41,7 +41,7 @@ _glarrayzsh() {
 	typeset -ga $_glarray_name
 	local _glarray_i=0
 	local _glarray_j=0
-	for _glarray_i in $@; do
+	for _glarray_i; do
 		typeset -g "$_glarray_name[$_glarray_j]"="$_glarray_i"
 		_glarray_j=$(( $_glarray_j + 1 ))
 	done
