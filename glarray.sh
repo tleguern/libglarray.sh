@@ -49,19 +49,17 @@ glarray() {
 	}
 
 	_glarray_init() {
-		set +u
-		if [ -n "$BASH_VERSION" ]; then
+		if [ -n "${BASH_VERSION:-}" ]; then
 			_glarray=_glarraybash
-		elif [ -n "$KSH_VERSION" ]; then
+		elif [ -n "${KSH_VERSION:-}" ]; then
 			_glarray=_glarrayksh
-		elif [ -n "$ZSH_VERSION" ]; then
+		elif [ -n "${ZSH_VERSION:-}" ]; then
 			setopt ksharrays
 			_glarray=_glarrayzsh
 		else
 			echo "Error: unsuported shell :(" >&2
 			exit 1
 		fi
-		set -u
 	}
 
 	if [ -z ${_glarray:-} ]; then
