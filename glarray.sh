@@ -14,52 +14,59 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 #
 
-LIBNAME="libglarray.sh"
-LIBVERSION="1.0"
+glarray() {
+	local LIBNAME="libglarray.sh"
+	local LIBVERSION="1.0"
 
-_glarrayksh() {
-	local _glarray_name="$1"
-	shift
-	set -A $_glarray_name -- $@
-}
+	_glarrayksh() {
+		local _glarray_name="$1"
+		shift
+		set -A $_glarray_name -- $@
+	}
 
-_glarraybash() {
-	local _glarray_name="$1"
-	shift
-	declare -ga $_glarray_name
-	local _glarray_i=0
-	local _glarray_j=0
-	for _glarray_i; do
-		declare -ga "$_glarray_name[$_glarray_j]=$_glarray_i"
-		_glarray_j=$(( $_glarray_j + 1 ))
-	done
-}
+	_glarraybash() {
+		local _glarray_name="$1"
+		shift
+		declare -ga $_glarray_name
+		local _glarray_i=0
+		local _glarray_j=0
+		for _glarray_i; do
+			declare -ga "$_glarray_name[$_glarray_j]=$_glarray_i"
+			_glarray_j=$(( $_glarray_j + 1 ))
+		done
+	}
 
-_glarrayzsh() {
-	local _glarray_name="$1"
-	shift
-	typeset -ga $_glarray_name
-	local _glarray_i=0
-	local _glarray_j=0
-	for _glarray_i; do
-		typeset -g "$_glarray_name[$_glarray_j]"="$_glarray_i"
-		_glarray_j=$(( $_glarray_j + 1 ))
-	done
-}
+	_glarrayzsh() {
+		local _glarray_name="$1"
+		shift
+		typeset -ga $_glarray_name
+		local _glarray_i=0
+		local _glarray_j=0
+		for _glarray_i; do
+			typeset -g "$_glarray_name[$_glarray_j]"="$_glarray_i"
+			_glarray_j=$(( $_glarray_j + 1 ))
+		done
+	}
 
-glarray_init() {
-	set +u
-	if [ -n "$BASH_VERSION" ]; then
-		glarray=_glarraybash
-	elif [ -n "$KSH_VERSION" ]; then
-		glarray=_glarrayksh
-	elif [ -n "$ZSH_VERSION" ]; then
-		setopt ksharrays
-		glarray=_glarrayzsh
-	else
-		echo "Error: unsuported shell :(" >&2
-		exit 1
+	_glarray_init() {
+		set +u
+		if [ -n "$BASH_VERSION" ]; then
+			_glarray=_glarraybash
+		elif [ -n "$KSH_VERSION" ]; then
+			_glarray=_glarrayksh
+		elif [ -n "$ZSH_VERSION" ]; then
+			setopt ksharrays
+			_glarray=_glarrayzsh
+		else
+			echo "Error: unsuported shell :(" >&2
+			exit 1
+		fi
+		set -u
+	}
+
+	if [ -z ${_glarray:-} ]; then
+		_glarray_init
 	fi
-	set -u
+	$_glarray $@
 }
 
