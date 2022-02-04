@@ -1,5 +1,7 @@
 # libglarray.sh
 
+[![builds.sr.ht status](https://builds.sr.ht/~tleguern/libglarray.sh.svg)](https://builds.sr.ht/~tleguern/libglarray.sh?)
+
 This repository contains an implementation of a portable wrapper around arrays manipulation in various shells.
 
 ## Compatibility
