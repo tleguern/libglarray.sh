@@ -1,48 +1,37 @@
-libglarray.sh
-=============
+# libglarray.sh
 
-This repository contains an interface to uniformly declare global arrays
-in shell, glarray.sh, and an experimental Korn shell interface for easier
-manipulation of arrays, array.ksh.
+This repository contains an implementation of a portable wrapper around arrays manipulation in various shells.
 
-Compatibility
--------------
+## Compatibility
 
 libglarray.sh supports the following shells:
 
-- GNU Bourne-Again SHell - bash ;
-- MirBSD Korn SHell - mksh;
-- OpenBSD Korn SHell - oksh ;
-- Public Domain Korn SHell - pdksh;
-- The Z shell - zsh.
+* GNU Bourne-Again SHell - bash ;
+* MirBSD Korn SHell - mksh ;
+* OpenBSD Korn SHell - oksh ;
+* Public Domain Korn SHell - pdksh ;
+* Yet Another SHell - yash ;
+* The Z shell - zsh.
 
-Other shells implementing the KSH arrays extension should be trivials
-to support.
+## Functions
 
-array.ksh
-=========
+This library helps to handle arrays with an easier to use syntax.
+It currently implements the following functionalities :
 
-This Korn shell script helps to handle arrays with an easier to use syntax. It currently implements the following functionalities :
+* create: initialize the array with a list of value ;
+* destroy: destroy an array ;
+* size: print the length of the array ;
+* del: remove an element from an array ;
+* set: assign a value to a particular indice ;
+* get: print the element at a particular indice ;
+* pop: print the last value of an array and remove it ;
+* append: add a new value at the end of an array ;
 
-- init: initialize the array with a list of value ;
-- len: print the length of the array ;
-- pop: print the last value of the array and remove it ;
-- push: add a new value at the end of the array ;
-- print: print the whole array ;
-- sort: sort a numeric array (currently done with a sleep sort).
+## Exemple
 
-Exemple
--------
-
-The Korn shell interface array.ksh should be installed as “array” in
-your FPATH in order to be usable. Once done it is possible to start
-playing with it this way :
-
-    $ autoload array
-    $ array init i 1 2 3 4
-    $ [[ $(array len i) -eq $(echo ${#i[*]}) ]] && echo true
-    true
-    $ [[ $(array print i) = $(echo ${i[*]}) ]] && echo true
-    true
-    ...
-
+    $ . ./array.sh
+    $ glarray create A 1 2 3 4
+    $ [ $(glarray size A) -eq 4 ]
+    $ glarray append A 5
+    $ glarray get A
+    1 2 3 4 5
