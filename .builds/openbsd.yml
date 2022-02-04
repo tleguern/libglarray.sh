@@ -1,0 +1,26 @@
+---
+image: openbsd/latest
+packages:
+  - bash
+  - yash--
+  - zsh
+tasks:
+  - test-bash: |
+      cd libglarray.sh/regress/
+      bash glarray.t
+      bash array.t
+  - test-oksh: |
+      cd libglarray.sh/regress/
+      ksh glarray.t
+      ksh array.t
+  - test-yash: |
+      cd libglarray.sh/regress/
+      yash array.t
+  - test-zsh: |
+      cd libglarray.sh/regress/
+      zsh glarray.t
+      zsh array.t
+triggers:
+  - action: email
+    condition: failure
+    to: "<tleguern+libglarray@bouledef.eu>"

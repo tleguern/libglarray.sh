@@ -1,0 +1,26 @@
+image: debian/stable
+packages:
+  - bash
+  - mksh
+  - yash
+  - zsh
+tasks:
+  - test-bash: |
+      cd libglarray.sh/regress/
+      bash glarray.t
+      bash array.t
+  - test-mksh: |
+      cd libglarray.sh/regress/
+      mksh glarray.t
+      mksh array.t
+  - test-yash: |
+      cd libglarray.sh/regress/
+      yash array.t
+  - test-zsh: |
+      cd libglarray.sh/regress/
+      zsh glarray.t
+      zsh array.t
+triggers:
+  - action: email
+    condition: failure
+    to: "<tleguern+kbf@bouledef.eu>"
