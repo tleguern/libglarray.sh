@@ -1,7 +1,14 @@
 . ../array.sh
 
 test_description="new array test suite"
-. /usr/local/share/sharness/sharness.sh
+if [ -f /usr/share/sharness/sharness.sh ]; then
+	. /usr/share/sharness/sharness.sh
+elif [ -f /usr/local/share/sharness/sharness.sh ]; then
+	. /usr/local/share/sharness/sharness.sh
+else
+	echo "Sharness is not installed or not discovered."
+	exit 1
+fi
 
 test_expect_success "init empty array" '
 	glarray create E

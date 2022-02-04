@@ -4,6 +4,7 @@ packages:
   - bash
   - yash--
   - zsh
+  - sharness
 tasks:
   - test-bash: |
       cd libglarray.sh/regress/

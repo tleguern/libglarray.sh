@@ -1,9 +1,11 @@
+---
 image: debian/stable
 packages:
   - bash
   - mksh
   - yash
   - zsh
+  - sharness
 tasks:
   - test-bash: |
       cd libglarray.sh/regress/
@@ -23,4 +25,4 @@ tasks:
 triggers:
   - action: email
     condition: failure
-    to: "<tleguern+kbf@bouledef.eu>"
+    to: "<tleguern+libglarray@bouledef.eu>"
