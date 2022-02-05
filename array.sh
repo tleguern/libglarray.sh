@@ -228,7 +228,7 @@ glarray() {
 	elif [[ $_action = "del" ]]; then
 		array_del "$_name" "$1"
 	elif [[ $_action = "set" ]]; then
-		array_set "$_name" "$1"
+		array_set "$_name" "$@"
 	elif [[ $_action = "get" ]] || [[ $_action = "print" ]]; then
 		if [ $# -ne 0 ]; then
 			array_get "$_name" "$1"

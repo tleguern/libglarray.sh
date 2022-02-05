@@ -80,4 +80,13 @@ test_expect_success "Add elements at the end of an array using append" '
 	[ "$(glarray get A)" = "a b c d e" ]
 '
 
+test_expect_success "Modify arbitrary elements of an array" '
+	glarray create A a b c d e
+	[ $(glarray size A) -eq 5 ]
+	glarray set A 2 f
+	[ $(glarray size A) -eq 5 ]
+	[ "$(glarray get A 2)" = "f" ]
+	[ "$(glarray get A)" = "a b f d e" ]
+'
+
 test_done
