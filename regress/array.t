@@ -89,4 +89,12 @@ test_expect_success "Modify arbitrary elements of an array" '
 	[ "$(glarray get A)" = "a b f d e" ]
 '
 
+test_expect_success "Modify the last element of an array" '
+	glarray create E
+	[ $(glarray size E) -eq 0 ]
+	glarray set E 0 foo
+	[ $(glarray size E) -eq 1 ]
+	[ "$(glarray get E)" = "foo" ]
+'
+
 test_done

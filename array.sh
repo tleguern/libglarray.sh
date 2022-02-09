@@ -126,24 +126,22 @@ fi
 # array_set: Assign the value $3 at indice $2 in array $1.
 # Public
 #
-if [ -n "${YASH_VERSION:-}" ]; then
-	array_set() {
-		local _name="$1"; shift
-		local _pos="$1"; shift
-		local _val="$1"; shift
+array_set() {
+	local _name="$1"; shift
+	local _pos="$1"; shift
+	local _val="$1"; shift
 
-		#eval "$_name[$_pos]=$_val"
-		array -s "$_name" "$(( _pos + 1 ))" "$_val"
-	}
-else
-	array_set() {
-		local _name="$1"; shift
-		local _pos="$1"; shift
-		local _val="$1"; shift
-
+	if [ -n "${YASH_VERSION:-}" ]; then
+		_pos="$(( _pos + 1 ))"
+		if [ $(array_size "$_name") -lt $_pos ]; then
+			array -i "$_name" "$_pos" "$_val"
+		else
+			array -s "$_name" "$_pos" "$_val"
+		fi
+	else
 		eval "$_name[$_pos]=$_val"
+	fi
 	}
-fi
 
 #
 # array_get: Print the element at indice $2 from array $1.
