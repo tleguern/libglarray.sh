@@ -34,7 +34,6 @@ if [ -n "${BASH_VERSION:-}" ]; then
 			declare -ga "$_name[$_j]=$_i"
 			_j=$(( $_j + 1 ))
 		done
-		unset _i _j
 	}
 elif [ -n "${KSH_VERSION:-}" ]; then
 	array_create() {
@@ -61,7 +60,6 @@ elif [ -n "${ZSH_VERSION:-}" ]; then
 			typeset -g "$_name[_j]"="$_i"
 			_j=$(( _j + 1 ))
 		done
-		unset _i _j
 	}
 else
 	array_create() {
@@ -197,7 +195,6 @@ if [ -n "${YASH_VERSION:-}" ]; then
 		local _end="$(array_size "$_name")"
 
 		array -i "$_name" "$_end" "$_val"
-		unset _end
 	}
 
 else
@@ -207,7 +204,6 @@ else
 		local _end="$(array_size "$_name")"
 
 		array_set "$_name" "$_end" "$_val"
-		unset _end
 	}
 fi
 
